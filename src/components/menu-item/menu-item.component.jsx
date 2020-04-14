@@ -1,15 +1,12 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { Container } from '@material-ui/core';
-import { shadows } from '@material-ui/system';
-import { spacing } from '@material-ui/system';
-import { sizing } from '@material-ui/system';
 
 
-const MenuItem = ({title, ImageUrl, col}) => (
+const MenuItem = ({title, ImageUrl, col, history, linkUrl, match}) => (
 
-    <Grid item xs={12} md={col} lg={col} >
+    <Grid item xs={12} md={col} lg={col} onClick = {() => history.push(`${match.url}${linkUrl}`) } >
         <Box align="center" boxShadow={2} m={2} style={{ backgroundImage: `url(${ImageUrl})`, backgroundSize: `cover`, backgroundPosition: `center` }}>
             <h1>{title}</h1>
             <span>Shop Now</span>
@@ -17,4 +14,4 @@ const MenuItem = ({title, ImageUrl, col}) => (
     </Grid>
 )
 
-export default MenuItem;
+export default withRouter(MenuItem);
