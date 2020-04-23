@@ -1,5 +1,6 @@
 import React from 'react';
 import {signInWithGoogle} from '../../firebase/firebase.utils';
+import firebase from 'firebase/app';
 import {Grid} from '@material-ui/core';
 import {Typography} from '@material-ui/core';
 import FormInput from '../form-input/form-input.component';
@@ -18,11 +19,18 @@ class SignIn extends React.Component
         }
     }
 
-    handleSubmit = event =>
+    handleSubmit = async event =>
     {
         event.preventDefault();
 
-        this.setState({email:'', password:''})
+        const { email, password } = this.state;
+        try {
+
+            await firebase.auth().signInWithEmailAndPassword(email, password);
+            this.setState({ email: '', password: '' });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     handleChange = event =>
