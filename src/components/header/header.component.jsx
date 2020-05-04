@@ -1,10 +1,11 @@
 import React from "react";
 import {connect} from 'react-redux';
-import { Box, Typography, Button, IconButton } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import {Link} from 'react-router-dom';
 import { ListItem } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import {auth} from '../../firebase/firebase.utils'; 
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 const Header = ({currentUser}) =>
 (
@@ -26,9 +27,9 @@ const Header = ({currentUser}) =>
                     :
                     <Link to='/login'>SIGN IN</Link>
                 }
-
             </List>
         </Box>
+        <CartDropdown/>
     </Box>
 )
 

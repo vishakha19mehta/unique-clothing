@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import './App.css';
 import Homepage from './pages/homepage/homepage.component';
@@ -8,7 +8,6 @@ import Header from './components/header/header.component';
 import LoginPage from './pages/login/login-component';
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 import {setCurrentUser} from './redux/user/user.action';
-import userReducer from './redux/user/user.reducer';
 
 class App extends React.Component
 {
@@ -45,15 +44,22 @@ class App extends React.Component
           <Header />
           <Route exact path="/" component= {Homepage}></Route>
           <Route path="/shop" component={ShopPage}></Route>
-          <Route path="/login" component={LoginPage}></Route>
+          {/*<Route path="/login" component={LoginPage}></Route> */}
+        <Route exact path="/login" render={() => this.props.currentUser ?
+          (<Redirect to='/' />) : (<LoginPage />)} />
         </div>
       );
     }
 }
 
+const mapStateToProps = ({user}) =>
+({
+  currentUser: user.currentUser
+});
 
 const mapDispatchToProps = dispatch =>
 ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
-export default connect(null, mapDispatchToProps)(App);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
