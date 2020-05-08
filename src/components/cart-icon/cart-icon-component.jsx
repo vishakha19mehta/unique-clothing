@@ -1,7 +1,11 @@
 import React from 'react';
+import {createStructuredSelector} from 'reselect';
+import {connect} from 'react-redux';
+import { selectCartItemsCount} from '../../redux/cart/cart.selector';
 import Badge from '@material-ui/core/Badge';
 import { withStyles } from '@material-ui/core/styles';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
 
 const StyledBadge = withStyles((theme) => ({
     badge: {
@@ -12,10 +16,17 @@ const StyledBadge = withStyles((theme) => ({
     },
 }))(Badge);
 
-export default function CartIcon() {
+const CartIcon = ({itemCount}) => {
     return ( 
-        <StyledBadge badgeContent={4} color="secondary">
+        <StyledBadge badgeContent={itemCount} color="secondary">
             <ShoppingCartIcon />
         </StyledBadge>
     );
 }
+
+const mapStateToProps = createStructuredSelector({
+    itemCount: selectCartItemsCount
+});
+
+
+export default connect(mapStateToProps)(CartIcon);

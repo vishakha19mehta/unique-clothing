@@ -1,5 +1,7 @@
 import React from "react";
 import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
+import {selectCurrentUser} from '../../redux/user/user.selector';
 import { Box, Typography } from "@material-ui/core";
 import {Link} from 'react-router-dom';
 import { ListItem } from '@material-ui/core';
@@ -33,9 +35,8 @@ const Header = ({currentUser}) =>
     </Box>
 )
 
-const mapStateToProps = state =>
-({
-    currentUser: state.user.currentUser
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
 });
 
 export default connect(mapStateToProps)(Header);

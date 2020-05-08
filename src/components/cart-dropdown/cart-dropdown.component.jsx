@@ -1,12 +1,17 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import {createStructuredSelector} from 'reselect';
+import {withRouter} from 'react-router-dom';
+import {selectCartItems} from '../../redux/cart/cart.selector';
+import CartItem from '../cart-item/cart-item.component';
+import {connect} from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
 import CartIcon from '../cart-icon/cart-icon-component';
+import CustomButton from '../custom-button/custom-button.component';
 
-export default function CartDropdown() {
+const CartDropdown = ({ cartItems, history }) => {
     return (
         <PopupState variant="popover" popupId="demo-popup-popover">
             {(popupState) => (
@@ -26,7 +31,20 @@ export default function CartDropdown() {
                         }}
                     >
                         <Box p={2}>
-                            <Typography>The content of the Popover.</Typography>
+                            {
+                                cartItems.length ? 
+                                cartItems.map(cartItem => (
+                                <div>
+                                    <CartItem  key={cartItem.id} item={cartItem} />
+                                    
+                                </div>
+                                 )) : <span>Your cart is empty</span>
+                            }
+
+                            <CustomButton
+                                onClick={() => history.push('/checkout')}
+                                variant="contained"
+                                color="primary">GO TO CHECKOUT</CustomButton>
                         </Box>
                     </Popover>
                 </div>
@@ -34,3 +52,10 @@ export default function CartDropdown() {
         </PopupState>
     );
 }
+
+const mapStateToProp = createStructuredSelector 
+({
+    cartItems: selectCartItems
+});
+
+export default withRouter(connect(mapStateToProp)(CartDropdown));

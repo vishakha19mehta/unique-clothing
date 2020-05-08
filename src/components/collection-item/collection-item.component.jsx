@@ -34,7 +34,8 @@ const CollectionItem = ({item, addItem}) =>
                 onClick={()=> addItem(item)}
                 variant="contained"
                 color="primary"
-                    startIcon={<ShoppingCartOutlinedIcon/>}>Add to cart</CustomButton>
+                startIcon={<ShoppingCartOutlinedIcon/>}>Add to cart
+            </CustomButton>
         </CardActions>
     </Card>
 )}
