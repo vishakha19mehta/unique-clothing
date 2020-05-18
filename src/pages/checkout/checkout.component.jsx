@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selector';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import StripeCheckoutButton from '../../components/stripe-button/stripe-button.component';
 
 /* Table design api*/
 import { Container } from '@material-ui/core';
@@ -53,6 +54,7 @@ const classes = useStyles();
                                 <TableCell align="right">${total}</TableCell>
                             </TableRow>                             
                         </TableBody>
+                        <StripeCheckoutButton price={total}/>
                     </Table>
                 </TableContainer>
             </Grid>

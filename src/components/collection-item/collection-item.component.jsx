@@ -40,7 +40,6 @@ const CollectionItem = ({item, addItem}) =>
     </Card>
 )}
 
-
 const mapDispatchToProps = dispatch =>
 ({
     addItem: item => dispatch(addItem(item))
